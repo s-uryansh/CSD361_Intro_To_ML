@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Struct-X: CSD361 Preliminary Project Report</title>
+<style>
+  @page { size: Letter; margin: 0.66in 0.60in 0.70in 0.60in; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+
+  body {
+    font-family: "Times New Roman", "Liberation Serif", "Nimbus Roman", Times, serif;
+    font-size: 9.5pt;
+    line-height: 1.105;
+    color: #000;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* ---------- Title block (spans both columns) ---------- */
+  .titleblock { text-align: center; margin-bottom: 0.10in; }
+  .titleblock .course {
+    font-size: 8.6pt; font-style: italic; letter-spacing: 0.04em; color: #222;
+    margin-bottom: 0.055in;
+  }
+  .titleblock h1 {
+    font-size: 17.5pt; font-weight: normal; line-height: 1.14;
+    margin: 0 0 0.075in 0;
+  }
+  .titleblock .subtitle { font-size: 10.2pt; font-style: italic; margin: 0 0 0.085in 0; }
+  .titleblock .authors { font-size: 10pt; margin: 0 0 0.035in 0; }
+  .titleblock .affil { font-size: 8.6pt; font-style: italic; color: #222; margin: 0; }
+  hr.rule { border: 0; border-top: 0.6pt solid #000; margin: 0.085in 0 0.085in 0; }
+
+  /* ---------- Two-column body ---------- */
+  .body { column-count: 2; column-gap: 0.19in; column-fill: auto; text-align: justify; orphans: 2; widows: 2; }
+
+  h2 {
+    font-size: 9.5pt; font-weight: normal; font-variant: small-caps; letter-spacing: 0.05em;
+    text-align: center; margin: 0.085in 0 0.035in 0; break-after: avoid;
+  }
+  h3 {
+    font-size: 9.5pt; font-weight: italic; text-align: left;
+    margin: 0.070in 0 0.025in 0; break-after: avoid;
+  }
+  p { margin: 0 0 0.038in 0; text-indent: 1.1em; }
+  p.ni { text-indent: 0; }
+
+  .abstract {
+    font-size: 8.6pt; margin: 0 0 0.06in 0; padding-bottom: 0.045in;
+    border-bottom: 0.5pt solid #000;
+  }
+  .indexterms { font-size: 8.4pt; font-style: italic; margin: 0 0 0.07in 0; }
+
+  ul, ol { margin: 0.015in 0 0.045in 0; padding-left: 0.15in; }
+  li { margin-bottom: 0.018in; text-align: justify; }
+
+  .m { font-style: italic; }
+  sub, sup { font-size: 72%; line-height: 0; }
+
+  table {
+    width: 100%; border-collapse: collapse; font-size: 7.4pt; line-height: 1.08;
+    margin: 0.05in 0 0.065in 0; text-align: left;
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  caption {
+    caption-side: top; font-size: 7.7pt; text-align: center;
+    padding: 0.025in 0 0.032in 0; font-weight: normal;
+  }
+  caption .lbl, figcaption .lbl { font-variant: small-caps; letter-spacing: 0.05em; }
+  th, td { padding: 0.016in 0.026in; vertical-align: top; border-top: 0.5pt solid #000; }
+  thead th { border-bottom: 0.5pt solid #000; text-align: left; font-weight: bold; }
+  tbody tr:last-child td { border-bottom: 0.5pt solid #000; }
+  td.c, th.c { text-align: center; }
+  .part { color: #444; }
+
+  figure { margin: 0.05in 0 0.065in 0; break-inside: avoid; page-break-inside: avoid; }
+  figcaption { font-size: 7.7pt; text-align: center; padding-top: 0.03in; line-height: 1.12; }
+
+  .flow { font-size: 7.1pt; line-height: 1.0; }
+  .fbox {
+    border: 0.6pt solid #000; border-radius: 2.5pt; padding: 0.024in 0.05in;
+    text-align: center; background: #f7f7f7;
+  }
+  .fbox.input { background: #eaeaea; }
+  .fbox.phys { background: #efefef; border-width: 0.9pt; }
+  .fbox.out { background: #e2e2e2; border-width: 0.9pt; }
+  .fbox .t1 { font-weight: bold; display: block; }
+  .fbox .t2 { display: block; color: #333; font-style: italic; }
+  .arrow { text-align: center; font-size: 7.6pt; line-height: 0.82; margin: 0.006in 0; }
+  .row { display: flex; gap: 0.05in; }
+  .row > div { flex: 1; }
+  .lossbar {
+    border: 0.6pt dashed #000; padding: 0.024in 0.05in; text-align: center;
+    font-size: 7.1pt; margin-top: 0.038in; background: #fff;
+  }
+
+  .refs { font-size: 7.1pt; line-height: 1.05; text-align: left; }
+  .refs p { text-indent: 0; margin: 0 0 0.012in 0; padding-left: 0.14in; text-indent: -0.14in; }
+
+  .footnote {
+    font-size: 7.1pt; line-height: 1.05; text-align: justify; margin-top: 0.045in;
+    border-top: 0.5pt solid #000; padding-top: 0.026in;
+  }
+</style>
+</head>
+<body>
+
+<div class="titleblock">
+  <div class="course">CSD361: Introduction to Machine Learning &nbsp;&bull;&nbsp; Preliminary Project Report</div>
+  <h1>Struct-X: Physics-Aware Event Vision for Robust<br>Non-Contact Structural Vibration Monitoring</h1>
+  <div class="subtitle">A Literature Survey, Gap Analysis and Preliminary Research Plan</div>
+  <div class="authors">Suryansh Rohil &nbsp;&bull;&nbsp; Arnab Mandal &nbsp;&bull;&nbsp; Shresth Tiwari</div>
+  <div class="affil">Department of Computer Science and Engineering</div>
+</div>
+<hr class="rule">
+
+<div class="body">
+
+<div class="abstract">
+<b>Abstract.</b> Non-contact vibration measurement with an event camera is technically attractive:
+microsecond timestamps, ~140&nbsp;dB dynamic range and negligible motion blur suit high-frequency structural
+response far better than contact or frame-based sensing. In practice, however, an event stream is not a picture of
+the structure but the residual of a sensor whose output depends on illumination, contrast threshold and bias
+currents, so the same physical motion is measured differently under different settings. This report surveys
+three methodological families that between them cover the pieces such a system needs: event-frame geometric
+deformation estimation, physics-guided learning for structural dynamics, and spatiotemporal Transformers with
+attention factorised over space and time. We find that the three have never been joined, that no reviewed work
+reports sensor-shift degradation as a first-class metric, and that spatiotemporal Transformers need more data
+than a 30-recording beam dataset can supply. We formalise the gap, propose a physics-aware event-vision pipeline
+with a reduced-order single-degree-of-freedom consistency term, and pre-register a falsification criterion: if the
+reduction in robustness gap does not exceed trial-to-trial variance, we report the physics term as not identifiable
+at this scale.
+</div>
+
+<div class="indexterms">
+<b>Index Terms.</b> event cameras, non-contact vibration measurement, structural health monitoring,
+physics-informed neural networks, spatiotemporal Transformers, domain shift, robustness.
+</div>
+
+<h2>I. Introduction</h2>
+
+<h3>A. Background</h3>
+
+<p>Vibration is the observable that structural health monitoring (SHM) has historically rested on: damage changes
+stiffness, mass and damping, and those changes leave detectable fingerprints in natural frequencies, mode shapes
+and acceleration responses. The instrumentation, however, is awkward. Accelerometers must be bonded to the member
+being watched, altering the very dynamics they measure. A laser Doppler vibrometer (LDV) avoids contact but needs a
+clear line of sight and a head held still while the target moves: workable on a laboratory bench, much
+less so on a bridge or a rotor. Cameras have therefore been pursued for years as a cheap, scalable, non-contact
+substitute, and event cameras have sharpened the idea considerably.</p>
+
+<p>An event camera, or dynamic vision sensor, abandons fixed-rate sampling. Each pixel asynchronously reports when
+the log intensity at its own location changes by more than a contrast threshold, emitting an event
+<span class="m">e</span>&nbsp;=&nbsp;(<span class="m">x</span>,&nbsp;<span class="m">y</span>,&nbsp;<span class="m">t</span>,&nbsp;<span class="m">p</span>)
+with polarity <span class="m">p</span>&nbsp;&isin;&nbsp;{&minus;1,&nbsp;+1} [1]. The consequences are exactly
+those vibration measurement wants: microsecond timestamps, roughly 140&nbsp;dB of dynamic range against about
+60&nbsp;dB for conventional CMOS, per-pixel bandwidth on the order of kilohertz, and little motion blur [1], [2].
+For a beam oscillating at tens of hertz to a few kilohertz, a conventional camera either blurs the motion or
+demands lighting and bandwidth a field deployment cannot carry. This is not a marginal advantage.</p>
+
+<h3>B. Motivation</h3>
+
+<p>There is a catch, and it is why this project exists. An event stream is not an image of the world; it is the
+residual of a sensor with a handful of user-set knobs. Illumination level and spectral content determine how many
+events a moving edge generates. The contrast threshold <span class="m">C</span> sets how large a brightness step a
+pixel must see before it speaks, and threshold mismatch across pixels is itself a noise source: Gallego et&nbsp;al.
+report the effective threshold as a random variable distributed approximately normally about the nominal setting,
+with a spread of 2&ndash;4% temporal contrast [1]. Refractory periods, bias currents and bandwidth limits shape
+the rest of the noise floor. Change any of these and the sensor produces a <em>different measurement of the same
+physical motion</em>. The domain shift in this project lives in the sensor, not the structure, and it is present in
+every recording we will ever take.</p>
+
+<p>Meanwhile the SHM literature has spent the last several years walking in the opposite direction. It has learned
+to keep models usable when the environment changes and the damage class is unknown, via open-set domain adaptation
+[8]; to inject governing equations into the training loss so that data-hungry networks still behave when data is
+scarce and noisy [6], [7]; and that video models built purely from self-attention need their attention factorised
+over space and time to be trainable at all [9]. What we could not find, after searching the families described
+below, is any work joining these threads to the event camera. That is the hole this project intends to fill.</p><h2>II. Research Problem</h2>
+
+<p>Let <span class="m">E</span><sub><span class="m">s</span></sub> denote the event stream recorded under sensing
+configuration <span class="m">s</span> (illumination, contrast threshold, bias setting, sensor variant), and
+<span class="m">q</span>(<span class="m">t</span>) the true vibration response measured by a co-located LDV,
+which we treat as ground truth. We seek a mapping
+<span class="m">f<sub>&theta;</sub></span>&nbsp;:&nbsp;<span class="m">E<sub>s</sub></span>&nbsp;&rarr;&nbsp;<span class="m">q</span>(<span class="m">t</span>)
+trained with a physics-aware objective, satisfying three requirements:</p>
+
+<ul>
+  <li><b>P1. Accuracy.</b> On held-out <em>recordings</em> from the configuration seen in training,
+  <span class="m">f<sub>&theta;</sub></span>(<span class="m">E</span><sub><span class="m">s</span><sub>0</sub></sub>)
+  should approximate <span class="m">q</span>(<span class="m">t</span>) in waveform RMSE, MAE and correlation, and
+  recover the dominant frequency <span class="m">f<sub>n</sub></span>.</li>
+  <li><b>P2. Stability.</b> The <em>robustness gap</em>
+  &Delta;&nbsp;=&nbsp;<span class="m">M</span>(shifted)&nbsp;&minus;&nbsp;<span class="m">M</span>(matched) should be
+  small, where <span class="m">M</span> is waveform RMSE or relative frequency error. This is what makes the
+  approach a <em>sensing</em> method rather than a one-configuration demo.</li>
+  <li><b>P3. Feasibility.</b> The mapping must be learnable from 30 independent beam recordings [10], which
+  forces windowed training data with trial-level splits and rules out any large model trained from scratch.</li>
+</ul>
+
+<p>Two scope decisions follow. First, this is a study of vibration <i>estimation</i> and sensing robustness, not
+damage classification: the XJTU-DV Beam subset provides no damage labels, and we decline to claim what the data
+cannot support. Second, our regression target is a continuous waveform rather than a categorical label, which
+changes what &ldquo;robustness&rdquo; has to mean (Section&nbsp;VIII).</p>
+<h2>III. Objectives of the Literature Survey</h2>
+
+<p>The survey answers five questions in sequence, following the read &rarr; categorise &rarr; compare &rarr;
+critique &rarr; gap &rarr; direction chain rather than summarising papers one at a time.</p>
+
+<ol>
+  <li><b>O1.</b> Establish what an event camera physically measures, and which of its parameters are set by the
+  user rather than by the scene. This decides whether sensor-induced domain shift is real or theoretical.</li>
+  <li><b>O2.</b> Identify pipelines that recover deformation or displacement from event data, recording what each
+  assumes (brightness constancy, spatial continuity, co-registered frames) and what supervision it needs.</li>
+  <li><b>O3.</b> Identify how physics is injected into deep learning for structural dynamics, recording which
+  physical form the constraint takes and where the required parameters come from.</li>
+  <li><b>O4.</b> Identify spatiotemporal architectures suited to event-derived tensors, with attention to their
+  behaviour in low-data regimes.</li>
+  <li><b>O5.</b> Determine how the literature measures, or fails to measure, degradation under changed
+  sensing or environmental conditions for a continuous-valued target.</li>
+</ol>
+
+<h2>IV. Literature Search Methodology</h2>
+
+<p>Six sources were queried: IEEE Xplore, ScienceDirect (including <em>Mechanical Systems and Signal Processing</em>
+and <em>Engineering Structures</em>), SpringerLink, Wiley Online Library, the ACM Digital Library and arXiv; the
+dataset record was retrieved separately from Zenodo. Searching ran in three passes: a broad keyword pass, a
+backward-citation pass from the two anchor surveys [1], [5], and a forward-citation pass from the XJTU-DV dataset
+paper [10]. Keyword groups and their yields are in Table&nbsp;1.</p>
+
+<table>
+  <caption><span class="lbl">Table 1.</span>&nbsp; Search protocol. 17 candidates retrieved across three passes;
+  12 retained after two-stage screening (5 core, 7 supporting).</caption>
+  <thead>
+    <tr><th style="width:20%">Concept group</th><th style="width:67%">Keywords</th><th class="c" style="width:13%">Retained</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Sensor</td><td>event camera; dynamic vision sensor; contrast threshold; illumination; noise</td><td class="c">3</td></tr>
+    <tr><td>Task</td><td>non-contact vibration measurement; visual deformation measurement; beam</td><td class="c">2</td></tr>
+    <tr><td>Method</td><td>physics-informed; physics-guided; neural network; structural dynamics</td><td class="c">4</td></tr>
+    <tr><td>Architecture</td><td>spatiotemporal transformer; space-time attention; divided attention</td><td class="c">2</td></tr>
+    <tr><td>Robustness</td><td>domain adaptation; open set; out-of-distribution</td><td class="c">1</td></tr>
+  </tbody>
+</table>
+
+<p>Records were excluded if they addressed only frame-based sensing, if the physical system was not a vibrating
+structure, or if the reported task was classification where our target is a waveform. Priority followed the course
+brief: recent journal papers, top-tier conference papers, foundational work, systematic reviews, then work
+directly on non-contact vibration sensing. All twelve retained sources are listed in Section&nbsp;XII.</p>
+
+<h2>V. Detailed Review of Existing Literature</h2>
+
+<p>The retained work clusters into three methodological families, reviewed here on their own terms before
+comparison.</p>
+
+<h3>A. Approach 1: Geometric, largely training-free event-frame deformation measurement</h3>
+
+<p>The most mature line of work relevant to us measures deformation directly from event data with an explicit motion
+model rather than a learned one. Wu et&nbsp;al. [4] fuse an event stream (temporally dense, spatially sparse, cheap)
+with a frame stream (spatially dense, low-noise) and solve for a dense displacement field. Their <em>Affine Invariant
+Simplicial</em> (AIS) framework partitions that field into low-parameter sub-regions and linearises each via
+simplicial motion parameterisation, exploiting the reproduction property
+<span class="m">I</span>[<span class="m">f</span>]&nbsp;=&nbsp;<span class="m">f</span> for affine
+<span class="m">f</span>(<span class="m">X</span>)&nbsp;=&nbsp;<span class="m">AX</span>&nbsp;+&nbsp;<span class="m">b</span>
+to suppress the ambiguity sparse, noisy events introduce. Motion is recovered by optimising an event
+contrast-maximisation objective jointly with image cross-correlation, coarse-to-fine, with a neighborhood-greedy
+scheme letting well-converged sub-regions guide their neighbours. On a purpose-built benchmark of 120+ aligned
+event/frame sequences with high-speed-video ground truth, the method reaches a 65.7% survival rate beyond
+100&nbsp;px displacement (1.6&times; the previous state of the art) using 18.9% of the storage and
+processing budget of high-speed video.</p>
+
+<p>Two features matter to us beyond those numbers. The method is entirely training-free, so there is no train/test
+split to leak and no data-scarcity problem. And its authors are explicit that no suitable event dataset existed,
+that building one is costly, that structural health monitoring is future work, and that the method leans on spatial
+continuity and brightness constancy, with pseudo-strains under topological change and degraded accuracy
+under specular reflection [4]. The wider sensor literature supplies the rest of this family: the representation
+taxonomy of Gallego et&nbsp;al. [1] (event frames and time surfaces retaining one timestamp per pixel; grid-like
+voxel tensors that drop into conventional CNN pipelines; learned representations) and the simulator conventions of
+Gehrig and Scaramuzza [2], which let a method be stress-tested against camera parameter changes without
+recapturing hardware.</p>
+
+<h3>B. Approach 2: Physics-informed and physics-guided learning for structural dynamics</h3>
+
+<p>This family treats physics as a training signal rather than an inference procedure. Raissi et&nbsp;al. [5] define
+the general form: a network is trained on a data-fidelity term while simultaneously satisfying the residual of a
+governing nonlinear PDE, in continuous-time and discrete-time variants, the latter admitting implicit
+Runge&ndash;Kutta schemes of arbitrary order. The framework is data-efficient precisely because the physics term
+constrains the hypothesis set; Karniadakis et&nbsp;al. [12] later generalise it and document where it fails:
+training can fail for reasons unconnected to the physics, and poorly chosen residuals actively hurt.</p>
+
+<p>The structural instantiation closest to Struct-X is Wang et&nbsp;al.'s PhyResNet [6]. A ResNet encoder maps
+acceleration responses to low-dimensional structural states (stiffness reductions); a physics-based decoder
+(an updated finite element model solved by Newmark-&beta;) reconstructs the response from those states. The
+equation of motion
+<span class="m">M</span><span class="m">ẍ</span>&nbsp;+&nbsp;<span class="m">C</span><span class="m">ẋ</span>&nbsp;+&nbsp;<span class="m">K</span><span class="m">x</span>&nbsp;=&nbsp;<span class="m">F</span>(<span class="m">t</span>)
+enters as one loss term, a second regresses the states against ground truth. The numbers establish the regime in
+which physics helps. On a simulated simply supported beam (10 elements) with 1&ndash;3% modelling error and
+10%/20% Gaussian measurement noise, trained on 5% of the data, PhyResNet improves R-value by 13.1% over the pure
+ResNet; at 10% noise R rises from 0.789 to 0.870, and at 20% noise it holds 0.808; with modelling error alone, MSE
+falls from 2.0&times;10<sup>&minus;4</sup> to 1.6&times;10<sup>&minus;4</sup> and R from 0.805 to 0.850. A
+seven-storey frame experiment reproduces the trend, and the authors are candid that physics-informed learning in
+SHM remains early-stage.</p>
+
+<p>Closest of all to our setting is the work reconstructing structural displacement from <em>both</em> accelerometer
+and camera measurements under a physics-informed objective [7]. That is structurally the same problem Struct-X faces,
+fusing a non-contact visual measurement with a physical response and letting the equation of motion regularise
+the fit. Its weakness is that the camera modality is a conventional frame camera, inheriting frame-camera failure
+modes under fast, small-amplitude motion, and its physics residual is written on the accelerometer channel rather
+than a high-bandwidth optical one.</p>
+
+<h3>C. Approach 3: Spatiotemporal Transformers and robustness-aware SHM</h3>
+
+<p>This family supplies the architecture. Bertasius et&nbsp;al. [9] remove convolution entirely and build video
+classification from self-attention over frame-level patches, comparing several attention schemes. Their
+operationally important finding: <em>divided attention</em>, applying temporal and spatial attention separately
+within each block, gives the best accuracy among the choices considered, whereas joint space-time attention is not
+merely worse but overflows GPU memory at the resolutions they target. TimeSformer sets the best reported
+Kinetics-400 accuracy (80.7% top-1, large variant), trains faster than 3D convolutions, and handles clips over a
+minute long.</p>
+
+<p>The same paper contains a warning we have taken seriously. Bertasius et&nbsp;al. attribute the convolutional bias
+(local connectivity and translation equivariance) as genuinely <em>beneficial on small training
+sets</em>, and argue Transformers pay off in big-data regimes where less inductive bias is needed; their spatial
+resolution ablation shows that accuracy gains from finer spatiotemporal partitioning require proportionally more
+pretraining. On robustness, Zhou and Lai [8] confront shift for classification, combining open-set domain adaptation
+with varying environmental conditions and unknown damage classes. The transferable idea is not their mechanism but
+their insistence that train and test conditions differ <em>by construction</em> rather than by random split.</p>
+
+<h2>VI. Comparative Analysis</h2>
+
+<p>Table&nbsp;2 places the three families side by side on the axes that decide whether a method can be adapted to
+Struct-X. The last three rows matter most: none reports degradation under a changed sensing configuration, and only
+one needs no data at all, at the cost of a co-registered frame stream and an assumption of brightness
+constancy.</p>
+<table>
+  <caption><span class="lbl">Table 2.</span>&nbsp; Comparative analysis of the three approach families against
+  requirements P1&ndash;P3 of Section&nbsp;II. Outputs are, respectively, a dense per-pixel displacement field, a
+  damage index / reconstructed response, and a class label; none of the three emits a calibrated confidence.</caption>
+  <thead>
+    <tr>
+      <th style="width:16%">Dimension</th>
+      <th style="width:28%">A. Geometric event-frame VDM <span class="part">[1], [2], [4]</span></th>
+      <th style="width:29%">B. Physics-guided structural DL <span class="part">[5]&ndash;[7], [12]</span></th>
+      <th style="width:27%">C. Spatiotemporal Transformer + robust SHM <span class="part">[8], [9]</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Input representation</b></td>
+      <td>Raw events + co-registered frames; event frames, time surfaces, voxel grids</td>
+      <td>1-D sensor series (acceleration, displacement), sometimes FEM-derived features</td>
+      <td>Stacked voxel-grid / frame-level patches</td>
+    </tr>
+    <tr>
+      <td><b>Supervision</b></td>
+      <td>None (training-free optimisation); ground truth used only for evaluation</td>
+      <td>Supervised on damage indices or response traces; low-data tolerance is the headline result</td>
+      <td>Supervised, large-scale video labels; pretraining strongly recommended</td>
+    </tr>
+    <tr>
+      <td><b>Form of physics</b></td>
+      <td>Implicit: linearised solid-elastic / simplicial motion prior inside the estimator</td>
+      <td>Explicit PDE residual in the loss; the decoder may <i>be</i> an FEM (Newmark-&beta;)</td>
+      <td>None</td>
+    </tr>
+    <tr><td><b>Needs an FE model?</b></td><td class="c">No</td><td class="c"><b>Yes</b> (or equivalent identified parameters)</td><td class="c">No</td></tr>
+    <tr><td><b>Data regime</b></td><td>Any (per-sequence optimisation)</td><td>Modest; gains largest at 5&ndash;10% of data</td><td>Large; degrades with small samples [9]</td></tr>
+    <tr><td><b>Handles sensing shift?</b></td><td class="part">Not evaluated</td><td class="part">Not evaluated (noise / modelling error only)</td><td class="c">Yes, by design [8], but categorical targets</td></tr>
+    <tr><td><b>Meets P1 (accuracy)?</b></td><td class="c">Yes, for displacement</td><td class="c">Yes, for damage index</td><td class="part">Unproven for waveforms</td></tr>
+    <tr><td><b>Meets P2 (stability)?</b></td><td class="part">Unknown</td><td class="part">Partial (noise only)</td><td class="part">Partial, wrong target type</td></tr>
+    <tr><td><b>Meets P3 (30 recordings)?</b></td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Only if pretrained</td></tr>
+  </tbody>
+</table>
+
+<h2>VII. Critical Analysis</h2>
+
+<p><b>Approach 1 buys robustness with assumptions we cannot accept.</b> The AIS framework is elegant precisely
+because it refuses to learn, and its authors are honest that it leans on spatial continuity and brightness
+constancy. Both fail exactly where we need them. Structural vibration at tens to thousands of hertz produces
+displacements small in amplitude relative to pixel pitch and fast relative to any achievable frame rate; brightness
+constancy is violated by every lighting change in the shifted conditions, and spatial continuity is violated
+wherever the beam edge is the only thing generating events. The method also needs a synchronised, co-registered
+frame stream, and returns a field by per-sequence optimisation: no learned prior to amortise across 30
+trials, and no calibrated uncertainty on the output.</p>
+
+<p><b>Approach 2 has the right inductive bias pointed the wrong way.</b> Every instantiation we found is
+formulated on <em>point</em> sensors with a known structural model. PhyResNet's decoder literally is a converged
+finite element model solved by Newmark-&beta;, and the physics term is meaningful only because
+<span class="m">M</span>, <span class="m">C</span>, <span class="m">K</span> are known. Struct-X inverts this: we
+have rich imagery and <em>no</em> FE model of the beam, and our ground truth is an LDV trace, already a physical
+measurement of the response. Borrowing PhyResNet's loss verbatim would require us to build and converge an FE
+model we do not have, importing exactly the modelling-error problems that paper measures. The honest adaptation is
+a <em>reduced-order</em> single-degree-of-freedom residual with <span class="m">m</span>,
+<span class="m">c</span>, <span class="m">k</span> identified from a single training trial, which
+immediately creates the failure mode of Section&nbsp;IX.</p>
+
+<p><b>Approach 3 is documented to be wrong at our data scale.</b> We read the TimeSformer results as a
+constraint, not an endorsement. Divided attention is right on principle, but the same ablation that selects it
+shows accuracy degrading toward the data-driven baseline as pretraining data thins, and 30 recordings is far below
+the regime where any from-scratch video Transformer is defensible. Any Struct-X encoder must therefore be
+pretrained or deliberately lightweight, and we should report the CNN encoder too rather than quietly presenting
+the Transformer as the main model.</p>
+
+<p><b>The cross-cutting omission is the metric.</b> No reviewed paper reports degradation under a changed
+<i>sensing</i> configuration as a headline number. Approaches 1 and 2 report accuracy under measurement noise and
+FEM modelling error, a different perturbation: noise is additive and zero-mean, whereas a change in illumination
+or contrast threshold is a <em>multiplicative, structured</em> change in the event statistics that moves signal
+and noise together. Approach 3 confronts shift, but for categorical labels, where robustness is a
+confusion-matrix property; for a continuous waveform the equivalent notion, namely how far the reconstructed trace
+and recovered frequency move, has no accepted definition here. Establishing that definition is itself a
+contribution, and we propose it in Section&nbsp;VIII.</p>
+
+<p><b>A methodological risk we should name.</b> Almost all of this literature splits at the sample or window level.
+With sliding windows drawn from continuous recordings, neighbouring windows overlap in time and share structure
+response, so a random window split leaks test data into training and inflates every number. We will split by
+complete recording and report mean &plusmn; standard deviation across independent trials, never a single
+aggregate figure.</p><h2>VIII. Research Gaps to Be Addressed</h2>
+
+<ol>
+  <li><b>G1. No event-vibration pipeline exists.</b> Event-based visual deformation measurement [4] is the
+  closest artefact and positions itself short of SHM; no reviewed work predicts an LDV-referenced waveform from
+  events.</li>
+  <li><b>G2. Physics and events have never been combined.</b> Physics-guided structural networks consume
+  point-sensor series [6], [7]; event pipelines are training-free or purely data-driven [4]. The two literatures
+  do not cite each other.</li>
+  <li><b>G3. Sensing-condition shift is unmeasured.</b> No reviewed study reports a robustness gap under
+  changed illumination, contrast threshold or sensor configuration. The shift event cameras are <em>most</em>
+  exposed to is the one <em>least</em> characterised.</li>
+  <li><b>G4. No waveform-domain definition of robustness.</b> Reviewed robustness metrics are classification
+  metrics [8] or additive-noise stress tests [6]; there is no continuous-target analogue for a measured physical
+  response.</li>
+  <li><b>G5. Physics priors are unidentified under scarce data.</b> In [6] the physical parameters are
+  given. Where they must be estimated from the same scarce data the network learns from, the residual can be driven
+  to zero by the degenerate solution <span class="m">q&#770;</span>&nbsp;&rarr;&nbsp;0, and we found no treatment
+  of this in the structural literature.</li>
+</ol>
+<h2>IX. Proposed Research Direction</h2>
+
+<p>We propose Struct-X: a physics-aware spatiotemporal event-vision pipeline trained on the XJTU-DV Beam subset [10]
+with LDV ground truth, and evaluated primarily on how little performance moves when the sensing configuration
+changes. Figure&nbsp;1 shows the pipeline; Section&nbsp;X states the falsification criteria.</p>
+
+<figure>
+  <div class="flow">
+    <div class="fbox input"><span class="t1">Event stream</span><span class="t2">E = {(x, y, t, p)}, condition s</span></div>
+    <div class="arrow">&#9660;</div>
+    <div class="fbox"><span class="t1">Representation</span><span class="t2">voxel grid / time surface, polarity-split bins</span></div>
+    <div class="arrow">&#9660;</div>
+    <div class="fbox"><span class="t1">Spatiotemporal encoder</span><span class="t2">divided space-time attention; pretrained or lightweight</span></div>
+    <div class="arrow">&#9660;</div>
+    <div class="fbox"><span class="t1">Latent vibration state</span><span class="t2">z<sub>t</sub></span></div>
+    <div class="arrow">&#9660;</div>
+    <div class="row">
+      <div class="fbox"><span class="t1">Waveform head</span><span class="t2">q&#770;(t)</span></div>
+      <div class="fbox"><span class="t1">Frequency head</span><span class="t2">f&#770;<sub>n</sub></span></div>
+    </div>
+    <div class="arrow">&#9660;</div>
+    <div class="fbox phys"><span class="t1">Physics layer</span><span class="t2">m q&#772;&#770; + c q&#770;&#775; + k q&#770; &minus; f&#770; = 0 &nbsp;(reduced-order SDOF)</span></div>
+    <div class="arrow">&#9660;</div>
+    <div class="fbox out"><span class="t1">Vibration estimate + uncertainty</span><span class="t2">q&#770;(t), f&#770;<sub>n</sub>, physics residual</span></div>
+    <div class="lossbar">
+      L = L<sub>LDV</sub> + &lambda;<sub>p</sub> L<sub>phys</sub> + &lambda;<sub>s</sub> L<sub>smooth</sub> &nbsp;[+ &lambda;<sub>c</sub> L<sub>contrastive</sub>, optional]
+    </div>
+  </div>
+  <figcaption><span class="lbl">Fig. 1.</span>&nbsp; Struct-X pipeline. Events are encoded into a spatiotemporal
+  tensor, decoded into a vibration waveform and a dominant-frequency estimate, and constrained by a reduced-order
+  single-degree-of-freedom residual. The contrastive term is an optional extension, not part of the core model.</figcaption>
+</figure>
+
+<p><b>Physics layer.</b> For free vibration we adopt the damped single-mode model
+<span class="m">m q&#772;&#770;</span>(<span class="m">t</span>) + <span class="m">c q&#775;</span>(<span class="m">t</span>)
++ <span class="m">k q</span>(<span class="m">t</span>) = 0, with natural frequency
+<span class="m">f<sub>n</sub></span> = (1/2&pi;)&radic;(<span class="m">k</span>/<span class="m">m</span>). The
+parameters are identified once by modal fitting on a <em>single</em> training trial and then frozen, so the physics
+term never sees test data. To defeat the degenerate collapse of G5, the residual is normalised by
+&#8214;<span class="m">q&#770;</span>&#8214; so that shrinking the prediction toward zero does not reduce the
+loss; we also monitor the ratio of the two gradient contributions to confirm the data term still dominates early in
+training.</p>
+
+<p><b>Experimental design.</b> The central experiment is a leave-one-condition-out grid: train on condition
+<span class="m">A</span>, then test on (i) held-out trials of <span class="m">A</span> (the matched upper bound),
+(ii) low&rarr;high illumination, (iii) a different camera configuration, and (iv) a combined shift. Baselines are an
+FFT/feature-extraction pipeline, a CNN on the same representations, and a Transformer without the physics term.
+Metrics are waveform RMSE/MAE and correlation against LDV, relative frequency error
+|<span class="m">f&#770;<sub>n</sub></span>&nbsp;&minus;&nbsp;<span class="m">f<sub>n</sub></span>|/<span class="m">f<sub>n</sub></span>,
+the normalised physics residual, and the robustness gap &Delta; of P2, all as mean &plusmn; standard
+deviation across trials.</p>
+
+<h2>X. Preliminary Research Questions</h2>
+
+<ol>
+  <li><b>RQ1 (feasibility).</b> Within one acquisition condition, to what waveform RMSE, correlation and relative
+  frequency error can a spatiotemporal event model reconstruct the LDV-measured response on held-out recordings, and
+  how much of that is attributable to the physics term rather than the architecture?</li>
+  <li><b>RQ2 (mechanism).</b> Which constraint carries the benefit under scarcity (the SDOF equation
+  residual, a temporal smoothness penalty on <span class="m">q&#770;</span>, or their combination) and does
+  the benefit survive once <span class="m">m</span>, <span class="m">c</span>, <span class="m">k</span> are
+  identified from data rather than given?</li>
+  <li><b>RQ3 (the actual claim).</b> Does the physics-aware model reduce the robustness gap &Delta; under
+  illumination and contrast-threshold shift relative to each baseline, and is that reduction due to the physics term
+  or merely to regularisation?</li>
+  <li><b>RQ4 (which output is stable).</b> Is the dominant-frequency estimate more shift-robust than waveform
+  RMSE? We expect so, since a spectral peak is a coarser statistic than a pointwise trace, but this is an
+  assumption to test rather than to build on.</li>
+  <li><b>RQ5 (falsification criterion, pre-registered).</b> If the reduction in &Delta; attributable to the physics
+  term is smaller than the trial-to-trial standard deviation of &Delta;, we conclude the physics constraint is
+  <em>not identifiable</em> at this data scale and report that as the outcome, negative result included. We will
+  likewise report whether the physics term degrades the matched-condition result, since a regulariser that helps
+  under shift while hurting in-distribution is a materially different finding.</li>
+</ol>
+
+<h2>XI. Conclusion</h2>
+
+<p>Non-contact vibration measurement with an event camera is technically well-motivated and, on the evidence
+gathered here, methodologically unclaimed. The three families surveyed each solve a third of the problem: geometric
+event-frame estimators recover deformation but assume brightness constancy and need frames; physics-guided
+structural networks supply the right inductive bias but demand a finite element model our setting does not have;
+spatiotemporal Transformers supply the right architecture but underperform when data is scarce. What is missing,
+and what this project proposes to test, is the joint claim: that a physics-aware spatiotemporal model can estimate
+LDV-referenced vibration from events <em>and</em> degrade less when the sensing configuration changes, measurably
+above trial-to-trial noise on 30 recordings. This is a feasibility study on one physical system rather than a
+benchmark, and RQ5 commits us to reporting a negative result plainly if the evidence does not support the
+claim.</p>
+<h2>XII. References</h2>
+
+<div class="refs">
+<p>[1]&nbsp;G. Gallego, T. Delbr&uuml;ck, G. Orchard, C. Bartolozzi, B. Taba, A. Censi, S. Leutenegger, A. J. Davison, J. Conradt, K. Daniilidis, and D. Scaramuzza, &ldquo;Event-based vision: A survey,&rdquo; <em>IEEE Trans. Pattern Anal. Mach. Intell.</em>, vol. 44, no. 1, pp. 154&ndash;180, Jan. 2022.</p>
+<p>[2]&nbsp;D. Gehrig and D. Scaramuzza, &ldquo;Event-based vision meets computer vision,&rdquo; <em>IEEE Trans. Pattern Anal. Mach. Intell.</em>, vol. 45, no. 10, pp. 15440&ndash;15468, 2023.</p>
+<p>[3]&nbsp;H. Rebecq, T. Zhu, J. Moraitis, R. F. A. van den Hant, and D. Scaramuzza, &ldquo;High speed and high dynamic range video with an event camera,&rdquo; in <em>Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)</em>, 2017, pp. 2194&ndash;2204.</p>
+<p>[4]&nbsp;Y. Wu, W. Zhai, Y. Cui, T. Zhao, Y. Cao, and Z.-J. Zha, &ldquo;Event-based visual deformation measurement,&rdquo; <em>arXiv:2602.14376</em>, 2026.</p>
+<p>[5]&nbsp;M. Raissi, P. Perdikaris, and G. E. Karniadakis, &ldquo;Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations,&rdquo; <em>J. Comput. Phys.</em>, vol. 378, pp. 686&ndash;707, 2019.</p>
+<p>[6]&nbsp;R. Wang, J. Li, L. Li, S. An, B. Ezard, Q. Li, and H. Hao, &ldquo;Structural damage identification by using physics-guided residual neural networks,&rdquo; <em>Eng. Struct.</em>, vol. 318, art. 118703, 2024.</p>
+<p>[7]&nbsp;&ldquo;Accurate structural displacement reconstruction from acceleration and computer vision measurements using physics-informed neural networks,&rdquo; <em>Mech. Syst. Signal Process.</em>, 2025.</p>
+<p>[8]&nbsp;M. Zhou and Z. Lai, &ldquo;Structural damage classification under varying environmental conditions and unknown classes via open set domain adaptation,&rdquo; <em>Mech. Syst. Signal Process.</em>, 2024.</p>
+<p>[9]&nbsp;G. Bertasius, H. Wang, and L. Torresani, &ldquo;Is space-time attention all you need for video understanding?&rdquo; in <em>Proc. Int. Conf. Mach. Learn. (ICML)</em>, 2021, pp. 813&ndash;824.</p>
+<p>[10]&nbsp;X. Li, S. Yu, X. Chen, Y. Lei, B. Yang, and N. Li, &ldquo;XJTU-DV: Open-source dynamic vision dataset for non-contact vibration measurement and fault diagnosis of mechanical systems,&rdquo; <em>Chinese J. Mech. Eng.</em>, 2026.</p>
+<p>[11]&nbsp;K. He, X. Zhang, S. Ren, and J. Sun, &ldquo;Deep residual learning for image recognition,&rdquo; in <em>Proc. IEEE Conf. Comput. Vis. Pattern Recognit. (CVPR)</em>, 2016, pp. 770&ndash;778.</p>
+<p>[12]&nbsp;G. E. Karniadakis, I. G. Kevrekidis, L. Lu, A. Perdikaris, S. Wang, and Y. Yang, &ldquo;Physics-informed machine learning,&rdquo; <em>Nature Rev. Phys.</em>, vol. 3, pp. 422&ndash;440, 2021.</p>
+</div>
+
+<div class="footnote">
+<b>Note.</b> Table&nbsp;1 records are our own; numbers quoted in Sections&nbsp;V&ndash;VII are as reported by the
+cited sources. All splits in Section&nbsp;IX are at recording level, not window level.
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "csd361-preliminary-report",
+  "private": true,
+  "description": "Build tooling for the Struct-X CSD361 preliminary project report (PDF via Playwright, DOCX via build_docx.py).",
+  "scripts": {
+    "build": "bash report/build.sh"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0"
+  }
+}
